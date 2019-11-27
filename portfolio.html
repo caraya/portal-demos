@@ -1,104 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-  <style>
-    @keyframes fade-in {
-      0%   { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    portal {
-      width: 40%;
-      height: 600px;
-      opacity: 0;
-      box-shadow: 0 0 20px 10px #999;
-      transform: scale(1);
-      transform-origin: bottom left;
-      bottom: 20px;
-      animation-name: fade-in;
-      animation-duration: 1s;
-      animation-delay: 2s;
-      animation-fill-mode: forwards;
-    }
-
-    .portal-transition {
-      transition: transform 0.4s;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .portal-transition {
-        transition: transform 0.001s;
-      }
-    }
-
-    .portal-reveal {
-      transform: scale(1.0) translateX(-20px) translateY(20px);
-    }
-
-    .portal-container {
-      display: flex;
-      justify-content: space-between;
-    }
-
-  </style>
-  <script>
-    function createPortal(url) {
-      const portal = document.createElement('portal');
-      portal.src = url;
-      portal.classList.add('portal-transition');
-      portal.addEventListener('click', evt => {
-        portal.classList.add('portal-reveal');
-      });
-      portal.addEventListener('transitionend', evt => {
-        if (evt.propertyName == 'transform') {
-          portal.activate();
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link hef="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap" rel="stylesheet">
+    <style>
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
         }
-      });
-      document.body.append(portal);
-    }
+        100% {
+          opacity: 1;
+        }
+      }
 
-  </script>
+      html {
+        padding: 3em;
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      portal {
+        width: 40%;
+        height: 600px;
+        opacity: 0;
+        box-shadow: 0 0 20px 10px #999;
+        transform: scale(1);
+        transform-origin: bottom left;
+        bottom: 20px;
+        animation-name: fade-in;
+        animation-duration: 1s;
+        animation-delay: 2s;
+        animation-fill-mode: forwards;
+      }
+
+      .portal-transition {
+        transition: transform 0.4s;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .portal-transition {
+          transition: transform 0.001s;
+        }
+      }
+
+      .portal-reveal {
+        transform: scale(1) translateX(-20px) translateY(20px);
+      }
+
+      .portal-container {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+    <script>
+      function createPortal(url) {
+        if (!'HTMLPortalElement' in window) {
+          console.log('portals are not supported');
+        } else {
+          const portal = document.createElement('portal');
+          portal.src = url;
+          portal.classList.add('portal-transition');
+          portal.addEventListener('click', evt => {
+            portal.classList.add('portal-reveal');
+          });
+          portal.addEventListener('transitionend', evt => {
+            if (evt.propertyName == 'transform') {
+              portal.activate();
+            }
+          });
+          document.body.append(portal);
+        }
+
+        if (window.portalHost) {
+          // Customize the UI when being embedded as a portal
+        }
+      }
+    </script>
   </head>
-<body>
-<h1>Portals Demo</h1>
+  <body>
+    <h1>Portals-Based Portfolio</h1>
 
-<blockquote>
-  <p>Portals are currently a Chrome only feature that requires <code>chrome://flags/#enable-portals</code> flag enabled.</p>
-</blockquote>
+    <blockquote>
+      <p>
+        Portals are currently a Chrome only feature that requires
+        <code>chrome://flags/#enable-portals</code> flag enabled.
+      </p>
+    </blockquote>
 
-<h2>Personal sites</h2>
+    <h2>Personal sites</h2>
 
-<div class="portal-container">
-  <script>
-    createPortal('https://publishing-project.rivendellweb.net');
-  </script>
-  <script>
-    createPortal('https://layout-experiments.firebaseapp.com/');
-  </script>
-</div>
+    <div class="portal-container">
+      <script>
+        createPortal('https://publishing-project.rivendellweb.net');
+      </script>
+      <script>
+        createPortal('https://layout-experiments.firebaseapp.com/');
+      </script>
+    </div>
 
-<h2>Examples</h2>
+    <h2>Examples</h2>
 
-<div class="portal-container">
-  <script>
-    createPortal('https://labs.jensimmons.com/');
-  </script>
-  <script>
-    createPortal('https://rwt.io/');
-  </script>
-</div>
+    <div class="portal-container">
+      <script>
+        createPortal('https://labs.jensimmons.com/');
+      </script>
+      <script>
+        createPortal('https://rwt.io/');
+      </script>
+    </div>
 
-<h2>Developer References</h2>
+    <h2>Developer References</h2>
 
-<div class="portal-container">
-  <script>
-    createPortal('https://developer.mozilla.org/en-US/');
-    createPortal('https://web.dev/')
-  </script>
-</div>
-</body>
+    <div class="portal-container">
+      <script>
+        createPortal('https://developer.mozilla.org/en-US/');
+        createPortal('https://web.dev/');
+      </script>
+    </div>
+  </body>
 </html>

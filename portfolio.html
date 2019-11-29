@@ -22,13 +22,10 @@
       }
 
       portal {
-        width: 40%;
+        width: 300px;
         height: 600px;
         opacity: 0;
         box-shadow: 0 0 20px 10px #999;
-        transform: scale(1);
-        transform-origin: bottom left;
-        bottom: 20px;
         animation-name: fade-in;
         animation-duration: 1s;
         animation-delay: 2s;
@@ -51,6 +48,7 @@
 
       .portal-container {
         display: flex;
+        flex-flow: row wrap;
         justify-content: space-between;
       }
     </style>
@@ -114,10 +112,18 @@
     <h2>Developer References</h2>
 
     <div class="portal-container">
-      <script>
+      <!-- <script>
         createPortal('https://developer.mozilla.org/en-US/');
         createPortal('https://web.dev/');
-      </script>
+      </script> -->
+      <portal src="https://developer.mozilla.org/en-US/"></portal>
+      <portal src="https://web.dev"></portal>
+      <portal src="https://css-tricks.com/">
+        <h2>Your browser doesn't support Portals</h2>
+      </portal>
+      <portal src="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">
+        <h2>Your browser doesn't support Portals</h2>
+      </portal>
     </div>
   </body>
 </html>

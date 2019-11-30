@@ -54,10 +54,11 @@
     </style>
     <script>
       function createPortal(url) {
+        const portal = document.createElement('portal');
         if (!'HTMLPortalElement' in window) {
           console.log('portals are not supported');
+          portal.innerHTML = '<h1>Portals are not supported</h1>';
         } else {
-          const portal = document.createElement('portal');
           portal.src = url;
           portal.classList.add('portal-transition');
           portal.addEventListener('click', evt => {
